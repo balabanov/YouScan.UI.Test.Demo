@@ -31,7 +31,9 @@ namespace YouScan.UI.Test.Demo
         public LoginPage(IWebDriver driver)
             : base(driver)
         {
-            if (!_driver.Title.Contains("Авторизация") && !_driver.Url.Equals("Properties.Settings.Default.Environment + Login/LogOn"))
+            Console.WriteLine(_driver.Title);
+            Console.WriteLine(_driver.Url);
+            if (!_driver.Title.Contains("Авторизация") || !_driver.Url.Equals(Properties.Settings.Default.Environment + "Login/LogOn"))
                 throw new NoSuchWindowException("This is not the YouScan login page");
         }
 
@@ -53,7 +55,7 @@ namespace YouScan.UI.Test.Demo
         public DashboardPage(IWebDriver driver)
             : base(driver)
         {
-            if (!_driver.Title.Contains("Список Тем: Мониторинг Социальных Медиа|YouScan") && !_driver.Url.Equals(Properties.Settings.Default.Environment + "Theme"))
+            if (!_driver.Title.Contains("Список Тем: Мониторинг Социальных Медиа|YouScan") || !_driver.Url.Equals(Properties.Settings.Default.Environment + "Theme"))
                 throw new NoSuchWindowException("This is not the YouScan dashboard page");
         }
 
@@ -74,7 +76,7 @@ namespace YouScan.UI.Test.Demo
         public void SetUp()
         {
             driver = new FirefoxDriver();
-            driver.Navigate().GoToUrl(Properties.Settings.Default.Environment+"/Login/LogOn");
+            driver.Navigate().GoToUrl(Properties.Settings.Default.Environment+"Login/LogOn");
             Login = new LoginPage(driver);
             PageFactory.InitElements(driver, Login);
         }
